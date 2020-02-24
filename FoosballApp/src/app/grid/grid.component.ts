@@ -11,27 +11,16 @@ export class GridComponent implements OnInit {
   ngOnInit(): void {
   } 
   
-  width = 0;
-  height = 0;
-
-  multi: any[];
-  view: any[];
-
   // options
+  multi: any[];
   legend: boolean = true;
   showLabels: boolean = true;
   animations: boolean = true;
   xAxis: boolean = true;
   yAxis: boolean = true;
-  showYAxisLabel: boolean = false;
-  showXAxisLabel: boolean = false;
   timeline: boolean = true;
   scale = true;
-
   colorScheme = "nightLights"
-  // colorScheme = {
-  //   domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
-  // };
 
   constructor() {
     Object.assign(this, { multi });

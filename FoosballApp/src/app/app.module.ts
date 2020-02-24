@@ -8,12 +8,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenyComponent } from './meny/meny.component';
 import { GridComponent } from './grid/grid.component';
+import { AddMatchComponent } from './add-match/add-match.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenyComponent,
-    GridComponent
+    GridComponent,
+    AddMatchComponent
   ],
   imports: [
     BrowserModule,
