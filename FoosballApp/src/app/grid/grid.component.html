@@ -1,0 +1,57 @@
+<H1 style="margin-left:auto; margin-right:auto;width: fit-content;">Stats</H1>
+<div style="display: flex; flex-flow: column;">
+  <div class="dark_grid">
+    <h3>Offence</h3>
+    <ngx-charts-line-chart
+    [scheme]="colorScheme"
+    [autoScale]="scale"
+    [legend]="legend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxis]="xAxis"
+    [yAxis]="yAxis"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [results]="multi"
+    (select)="onSelect($event)"
+    (activate)="onActivate($event)"
+    (deactivate)="onDeactivate($event)"
+    ></ngx-charts-line-chart>
+  </div>
+  <div class="dark_grid">
+    <h3>Defence</h3>
+    <ngx-charts-line-chart
+    [scheme]="colorScheme"
+    [autoScale]="scale"
+    [legend]="legend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxis]="xAxis"
+    [yAxis]="yAxis"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [results]="multi"
+    (select)="onSelect($event)"
+    (activate)="onActivate($event)"
+    (deactivate)="onDeactivate($event)"
+    ></ngx-charts-line-chart>
+  </div>
+  <div class="dark_grid">
+    <h3>Teams</h3>
+    <ngx-charts-line-chart
+    [scheme]="colorScheme"
+    [autoScale]="scale"
+    [legend]="legend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxis]="xAxis"
+    [yAxis]="yAxis"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [results]="multi"
+    (select)="onSelect($event)"
+    (activate)="onActivate($event)"
+    (deactivate)="onDeactivate($event)"
+    ></ngx-charts-line-chart>
+  </div>
+</div>
