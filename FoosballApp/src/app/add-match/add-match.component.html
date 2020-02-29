@@ -1,1 +1,20 @@
-<p>add-match works!</p>
+<div class="AddMatchContainer">
+    <div class="Team">
+        <h3>Attack</h3>
+        <player-select [(values)]="playerList" [(selectedValue)]="attack1"></player-select>
+        <h3>Defence</h3>
+        <player-select [(values)]="playerList" [(selectedValue)]="defence1"></player-select>
+    </div>
+    <div class="result">
+        <select-points [(value)]="teamOneValue" ></select-points>
+        <h1 style="Margin-top: auto; Margin-bottom: auto;">-</h1>
+        <select-points [(value)]="teamTwoValue"></select-points>
+    </div>
+    <div class="Team">
+        <h3>Attack</h3>
+        <player-select [(values)]="playerList" [(selectedValue)]="attack2"></player-select>
+        <h3>Defence</h3>
+        <player-select [(values)]="playerList" [(selectedValue)]="defence2"></player-select>
+    </div>
+</div>
+<button (click)="SaveMatch()">Save</button>

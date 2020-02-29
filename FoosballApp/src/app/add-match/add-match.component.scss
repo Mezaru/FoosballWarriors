@@ -1,0 +1,24 @@
+.AddMatchContainer{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    
+    .Team {
+        margin: 30px;
+    }
+
+    .result {
+        display: flex;
+        flex-flow: row;
+
+        select-points {
+            height: fit-content;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-right: 20px;
+            margin-left: 20px;
+        }
+    }
+
+}
