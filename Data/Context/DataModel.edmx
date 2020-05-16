@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FoosballWarriorsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PlayedMatch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OffencePlayer1" Type="int" Nullable="false" />
+          <Property Name="DefencePlayer1" Type="int" Nullable="false" />
+          <Property Name="Team1" Type="int" Nullable="false" />
+          <Property Name="ScoreTeam1" Type="int" Nullable="false" />
+          <Property Name="OffencePlayer2" Type="int" Nullable="false" />
+          <Property Name="DefencePlayer2" Type="int" Nullable="false" />
+          <Property Name="Team2" Type="int" Nullable="false" />
+          <Property Name="ScoreTeam2" Type="int" Nullable="false" />
+          <Property Name="MatchTime" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayerId1" Type="int" Nullable="false" />
+          <Property Name="PlayerId2" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PlayedMatch_DefencePlayer1">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="DefencePlayer1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedMatch_DefencePlayer2">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="DefencePlayer2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedMatch_OffencePlayer1">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="OffencePlayer1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedMatch_OffencePlayer2">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="OffencePlayer2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedMatch_Team1">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="Team1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedMatch_Team2">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="Team2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teams_Player1">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="PlayerId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teams_Player2">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="PlayerId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FoosballWarriorsModelStoreContainer">
+          <EntitySet Name="PlayedMatch" EntityType="Self.PlayedMatch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PlayedMatch_DefencePlayer1" Association="Self.FK_PlayedMatch_DefencePlayer1">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedMatch_DefencePlayer2" Association="Self.FK_PlayedMatch_DefencePlayer2">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedMatch_OffencePlayer1" Association="Self.FK_PlayedMatch_OffencePlayer1">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedMatch_OffencePlayer2" Association="Self.FK_PlayedMatch_OffencePlayer2">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedMatch_Team1" Association="Self.FK_PlayedMatch_Team1">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedMatch_Team2" Association="Self.FK_PlayedMatch_Team2">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teams_Player1" Association="Self.FK_Teams_Player1">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teams_Player2" Association="Self.FK_Teams_Player2">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FoosballWarriorsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PlayedMatch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OffencePlayer1" Type="Int32" Nullable="false" />
+          <Property Name="DefencePlayer1" Type="Int32" Nullable="false" />
+          <Property Name="Team1" Type="Int32" Nullable="false" />
+          <Property Name="ScoreTeam1" Type="Int32" Nullable="false" />
+          <Property Name="OffencePlayer2" Type="Int32" Nullable="false" />
+          <Property Name="DefencePlayer2" Type="Int32" Nullable="false" />
+          <Property Name="Team2" Type="Int32" Nullable="false" />
+          <Property Name="ScoreTeam2" Type="Int32" Nullable="false" />
+          <Property Name="MatchTime" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Player" Relationship="Self.FK_PlayedMatch_DefencePlayer1" FromRole="PlayedMatch" ToRole="Player" />
+          <NavigationProperty Name="Player1" Relationship="Self.FK_PlayedMatch_DefencePlayer2" FromRole="PlayedMatch" ToRole="Player" />
+          <NavigationProperty Name="Player2" Relationship="Self.FK_PlayedMatch_OffencePlayer1" FromRole="PlayedMatch" ToRole="Player" />
+          <NavigationProperty Name="Player3" Relationship="Self.FK_PlayedMatch_OffencePlayer2" FromRole="PlayedMatch" ToRole="Player" />
+          <NavigationProperty Name="Team" Relationship="Self.FK_PlayedMatch_Team1" FromRole="PlayedMatch" ToRole="Teams" />
+          <NavigationProperty Name="Team3" Relationship="Self.FK_PlayedMatch_Team2" FromRole="PlayedMatch" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="PlayedMatches" Relationship="Self.FK_PlayedMatch_DefencePlayer1" FromRole="Player" ToRole="PlayedMatch" />
+          <NavigationProperty Name="PlayedMatches1" Relationship="Self.FK_PlayedMatch_DefencePlayer2" FromRole="Player" ToRole="PlayedMatch" />
+          <NavigationProperty Name="PlayedMatches2" Relationship="Self.FK_PlayedMatch_OffencePlayer1" FromRole="Player" ToRole="PlayedMatch" />
+          <NavigationProperty Name="PlayedMatches3" Relationship="Self.FK_PlayedMatch_OffencePlayer2" FromRole="Player" ToRole="PlayedMatch" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK_Teams_Player1" FromRole="Player" ToRole="Teams" />
+          <NavigationProperty Name="Teams1" Relationship="Self.FK_Teams_Player2" FromRole="Player" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerId1" Type="Int32" Nullable="false" />
+          <Property Name="PlayerId2" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PlayedMatches" Relationship="Self.FK_PlayedMatch_Team1" FromRole="Teams" ToRole="PlayedMatch" />
+          <NavigationProperty Name="PlayedMatches1" Relationship="Self.FK_PlayedMatch_Team2" FromRole="Teams" ToRole="PlayedMatch" />
+          <NavigationProperty Name="Player" Relationship="Self.FK_Teams_Player1" FromRole="Teams" ToRole="Player" />
+          <NavigationProperty Name="Player1" Relationship="Self.FK_Teams_Player2" FromRole="Teams" ToRole="Player" />
+        </EntityType>
+        <Association Name="FK_PlayedMatch_DefencePlayer1">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="DefencePlayer1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedMatch_DefencePlayer2">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="DefencePlayer2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedMatch_OffencePlayer1">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="OffencePlayer1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedMatch_OffencePlayer2">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="OffencePlayer2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedMatch_Team1">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="Team1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedMatch_Team2">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="PlayedMatch" Type="Self.PlayedMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayedMatch">
+              <PropertyRef Name="Team2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teams_Player1">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="PlayerId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teams_Player2">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="PlayerId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FoosballWarriorsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PlayedMatches" EntityType="Self.PlayedMatch" />
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <AssociationSet Name="FK_PlayedMatch_DefencePlayer1" Association="Self.FK_PlayedMatch_DefencePlayer1">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedMatch_DefencePlayer2" Association="Self.FK_PlayedMatch_DefencePlayer2">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedMatch_OffencePlayer1" Association="Self.FK_PlayedMatch_OffencePlayer1">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedMatch_OffencePlayer2" Association="Self.FK_PlayedMatch_OffencePlayer2">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedMatch_Team1" Association="Self.FK_PlayedMatch_Team1">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedMatch_Team2" Association="Self.FK_PlayedMatch_Team2">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="PlayedMatch" EntitySet="PlayedMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teams_Player1" Association="Self.FK_Teams_Player1">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teams_Player2" Association="Self.FK_Teams_Player2">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FoosballWarriorsModelStoreContainer" CdmEntityContainer="FoosballWarriorsEntities">
+          <EntitySetMapping Name="PlayedMatches">
+            <EntityTypeMapping TypeName="FoosballWarriorsModel.PlayedMatch">
+              <MappingFragment StoreEntitySet="PlayedMatch">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OffencePlayer1" ColumnName="OffencePlayer1" />
+                <ScalarProperty Name="DefencePlayer1" ColumnName="DefencePlayer1" />
+                <ScalarProperty Name="Team1" ColumnName="Team1" />
+                <ScalarProperty Name="ScoreTeam1" ColumnName="ScoreTeam1" />
+                <ScalarProperty Name="OffencePlayer2" ColumnName="OffencePlayer2" />
+                <ScalarProperty Name="DefencePlayer2" ColumnName="DefencePlayer2" />
+                <ScalarProperty Name="Team2" ColumnName="Team2" />
+                <ScalarProperty Name="ScoreTeam2" ColumnName="ScoreTeam2" />
+                <ScalarProperty Name="MatchTime" ColumnName="MatchTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="FoosballWarriorsModel.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="FoosballWarriorsModel.Team">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PlayerId1" ColumnName="PlayerId1" />
+                <ScalarProperty Name="PlayerId2" ColumnName="PlayerId2" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
