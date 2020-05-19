@@ -1,0 +1,16 @@
+<div style="max-width: 400px;" class="form-group mx-auto w-auto mt-5">
+    <div class="row">
+            <label>Player name</label>
+            <input class="form-control" name="newName" ngDefaultControl type="text" [(ngModel)]="newPlayer.name" />
+            <label>Picture</label>
+            <input type="file" accept="image/*" class="form-control" style="height: auto;" (change)="SetImage($event.target.files)" />
+    </div>
+    <img class="row w-20 mx-auto" style="height: 115px; margin-top: 31px;" [src]="imagetxt" />
+    <button class="btn btn-primary mt-3" (click)="SaveNewPlayer()">Save</button>
+</div>
+<div>
+    <div *ngFor="let player of players" >
+        {{player.name}}
+        <img style="height: 115px; margin-top: 31px;" [src]='baseUrl + player.imageUrl' />
+    </div>
+</div>

@@ -3,11 +3,16 @@ using FoosballApi.Interface;
 using FoosballApi.Repository;
 using FoosballApi.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace FoosballApi
 {
@@ -27,6 +32,23 @@ namespace FoosballApi
             services.AddControllers();
             services.AddTransient<IDataRepository, DataRepository>();
             services.AddTransient<IPlayerService, PlayerService>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", bulder =>
+                {
+                    bulder.AllowAnyOrigin();
+                    bulder.AllowAnyMethod();
+                    bulder.AllowAnyHeader();
+                });
+            });
+
+            services.Configure<FormOptions>(o =>
+            {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,11 +59,21 @@ namespace FoosballApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Images")),
+                RequestPath = new PathString("/Images")
+            });
+
+            app.UseCors("AllowAll");
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

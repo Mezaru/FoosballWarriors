@@ -14,6 +14,8 @@ import { HistoryComponent } from './history/history.component';
 import { GenerateTeamsComponent } from './generate-teams/generate-teams.component';
 import { SelectPointsComponent } from './shared/components/select-points/select-points.component';
 import { PlayerSelectComponent } from './shared/components/player-select/player-select.component';
+import { PlayersComponent } from './players/players.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { PlayerSelectComponent } from './shared/components/player-select/player-
     SelectPointsComponent,
     HistoryComponent,
     GenerateTeamsComponent,
-    PlayerSelectComponent
+    PlayerSelectComponent,
+    PlayersComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +36,12 @@ import { PlayerSelectComponent } from './shared/components/player-select/player-
     NgxChartsModule,
     BrowserAnimationsModule,
     NgSelectModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: 'AddMatch', component: AddMatchComponent},
       { path: 'GenerateTeams', component: GenerateTeamsComponent },
       { path: 'History', component: HistoryComponent },
+      { path: 'Players', component: PlayersComponent },
       { path: '', component: GridComponent },
       { path: '**', component: GridComponent },
     ])

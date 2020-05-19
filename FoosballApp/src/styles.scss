@@ -1,9 +1,19 @@
 // /* You can add global styles to this file, and also import other style files */
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
+.btn-primary:hover{
+  background-color: rgb(83, 41, 126);
+  border-color: #5c2f8a;
+}
+
+.btn-primary{
+  background-color: #663399;
+  border-color: #7d40bb;
+}
+
 body {
     background-color: #1b1e27;
-    color: rgb(57, 90, 150);
+    color: #7d40bb;
 }
 
 .dark_grid {

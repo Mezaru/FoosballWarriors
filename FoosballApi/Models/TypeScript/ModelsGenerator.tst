@@ -13,7 +13,7 @@
     // Uncomment the constructor to change template settings.
     Template(Settings settings)
     {
-        settings.OutputFilenameFactory = (file) => $"..\\..\\..\\..\\FoosballWarriors\\FoosballApp\\src\\app\\shared\\models\\{file.Name.Replace("Model.cs", ".model.ts")}";
+        settings.OutputFilenameFactory = (file) => $"{file.Name.Replace("Model.cs", ".model.ts")}";
     }
 
     string ModellessName(Class c)
@@ -40,6 +40,6 @@
 
 export class $ModellessName {
     $Properties[
-    public $Name: $ModellessName = $Type[$Default];]
+    public $name: $ModellessName = $Type[$Default];]
 
 }]

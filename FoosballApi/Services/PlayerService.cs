@@ -1,9 +1,7 @@
 ﻿using FoosballApi.Context;
 using FoosballApi.Interface;
-using System;
+using FoosballApi.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FoosballApi.Services
 {
@@ -16,14 +14,24 @@ namespace FoosballApi.Services
             this.repo = repo;
         }
 
-        public Player GetPlayer(int id)
+        public PlayerModel GetPlayer(int id)
         {
             return repo.GetPlayer(id);
         }
 
-        public List<Player> GetAllPlayer()
+        public List<PlayerModel> GetAllPlayer()
         {
             return repo.GetAllPlayer();
+        }
+
+        public int SaveNewPlayer(PlayerModel player)
+        {
+            return repo.SaveNewPlayer(player);
+        }
+
+        public void SavePlayerImage(int playerId, string dbPath)
+        {
+            repo.SavePlayerImage(playerId, dbPath);
         }
     }
 }

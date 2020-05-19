@@ -16,7 +16,7 @@ namespace FoosballApi.Context
         public int Id { get; set; }
         public string Name { get; set; }
         public int Rating { get; set; }
-        public byte[] Image { get; set; }
+        public string ImageUrl { get; set; }
 
         public virtual Teams TeamsPlayerId1Navigation { get; set; }
         public virtual Teams TeamsPlayerId2Navigation { get; set; }
