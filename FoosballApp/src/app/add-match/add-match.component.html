@@ -1,20 +1,29 @@
-<div class="AddMatchContainer">
-    <div class="Team">
-        <h3>Attack</h3>
-        <player-select [(values)]="playerList" [(selectedValue)]="attack1"></player-select>
-        <h3>Defence</h3>
-        <player-select [(values)]="playerList" [(selectedValue)]="defence1"></player-select>
+<div class="d-flex ml-auto mr-auto mt-5 match-container">
+    <div class="mb-5 p-0 playerSelect">
+        <div>
+            <h3>Attack</h3>
+            <player-select [(players)]="playerList" [(selectedPlayer)]="attack1"></player-select>
+        </div>
+        <div>
+            <h3>Defence</h3>
+            <player-select [(players)]="playerList" [(selectedPlayer)]="defence1"></player-select>
+        </div>
     </div>
-    <div class="result">
-        <select-points [(value)]="teamOneValue" ></select-points>
-        <h1 style="Margin-top: auto; Margin-bottom: auto;">-</h1>
-        <select-points [(value)]="teamTwoValue"></select-points>
+    <div class="d-flex m-auto pl-3 pr-3 scoreSelect" style="justify-content: space-evenly; width: inherit;">
+        <select-points class="mt-auto mb-auto" [(value)]="teamOneValue"></select-points>
+        <h1 class="m-auto">-</h1>
+        <select-points class="mt-auto mb-auto" [(value)]="teamTwoValue"></select-points>
     </div>
-    <div class="Team">
-        <h3>Attack</h3>
-        <player-select [(values)]="playerList" [(selectedValue)]="attack2"></player-select>
-        <h3>Defence</h3>
-        <player-select [(values)]="playerList" [(selectedValue)]="defence2"></player-select>
+    <div class="mb-5 p-0 playerSelect">
+        <div>
+            <h3>Attack</h3>
+            <player-select [(players)]="playerList" [(selectedPlayer)]="attack2"></player-select>
+        </div>
+        <div>
+            <h3>Defence</h3>
+            <player-select [(players)]="playerList" [(selectedPlayer)]="defence2"></player-select>
+        </div>
     </div>
 </div>
-<button (click)="SaveMatch()">Save</button>
+<button [disabled]="!attack1 || !attack2 || !defence1 || !defence2"
+    class="btn btn-primary d-block btn-width ml-auto mr-auto" (click)="SaveMatch()">Save</button>

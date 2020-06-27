@@ -1,1 +1,7 @@
-<ng-select [items]="values" bindLabel="name" [(ngModel)]="selectedValue" (change)="SelectPlayer($event)" ></ng-select>
+<div class="selectBox rounded d-flex flex-row justify-content-between">
+    <div (click)="ChoosePlayer()" class="w-100" style="text-align: center; font-size: 22px;">
+        {{selectedPlayerName}}
+    </div>
+    <img class="exitButton" (click)="RemovePlayer()" src="https://localhost:44364/images/exit.png" />
+</div>
+<template #choosePlayer></template>

@@ -1,16 +1,19 @@
-<div style="max-width: 400px;" class="form-group mx-auto w-auto mt-5">
+<div style="max-width: 400px;" class="container form-group mx-auto w-auto mt-5">
     <div class="row">
-            <label>Player name</label>
-            <input class="form-control" name="newName" ngDefaultControl type="text" [(ngModel)]="newPlayer.name" />
-            <label>Picture</label>
-            <input type="file" accept="image/*" class="form-control" style="height: auto;" (change)="SetImage($event.target.files)" />
+        <label>Player name</label>
+        <input class="form-control" name="newName" ngDefaultControl type="text" [(ngModel)]="player.name" />
+        <label>Picture</label>
+        <input type="file" accept="image/*" class="form-control" style="height: auto;"
+            (change)="SetImage($event.target.files)" />
     </div>
-    <img class="row w-20 mx-auto" style="height: 115px; margin-top: 31px;" [src]="imagetxt" />
-    <button class="btn btn-primary mt-3" (click)="SaveNewPlayer()">Save</button>
-</div>
-<div>
-    <div *ngFor="let player of players" >
-        {{player.name}}
-        <img style="height: 115px; margin-top: 31px;" [src]='baseUrl + player.imageUrl' />
+    <div class="row flex-column">
+        <img id="picture" class="p-0 mt-3 ml-auto mr-auto rounded-circle" style="width: 50%;" [ngStyle]="{'height.px': height}" [src]="imagetxt" />
+        <button [disabled]="!player.name || player.name === ''" class="btn btn-primary mt-3" (click)="SavePlayer()">{{saveButton}}</button>
+        <button *ngIf="player.id > 0" class="btn btn-danger mt-3" (click)="DeletePlayer()">Delete</button>
+        <button *ngIf="player.id > 0" class="btn btn-secondary mt-3" (click)="Clear()">Cancel</button>
+    </div>
+    <devider class="row"></devider>
+    <div class="row">
+        <player-card (cardClick)="SelectPlayer(player)" class="w-100 rounded mb-2" style="box-shadow: inset 0 0 5px #482867;" *ngFor="let player of players" [player]="player"></player-card>
     </div>
 </div>

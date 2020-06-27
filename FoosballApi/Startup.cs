@@ -1,4 +1,5 @@
 using FoosballApi.Context;
+using FoosballApi.Hubs;
 using FoosballApi.Interface;
 using FoosballApi.Repository;
 using FoosballApi.Services;
@@ -32,23 +33,27 @@ namespace FoosballApi
             services.AddControllers();
             services.AddTransient<IDataRepository, DataRepository>();
             services.AddTransient<IPlayerService, PlayerService>();
+            services.AddTransient<ISignalService, SignalService>();
 
+            services.AddSignalR();
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", bulder =>
                 {
-                    bulder.AllowAnyOrigin();
                     bulder.AllowAnyMethod();
                     bulder.AllowAnyHeader();
+                    bulder.AllowCredentials();
+                    bulder.WithOrigins("http://localhost:4200");
                 });
             });
-
+            
             services.Configure<FormOptions>(o =>
             {
                 o.ValueLengthLimit = int.MaxValue;
                 o.MultipartBodyLengthLimit = int.MaxValue;
                 o.MemoryBufferThreshold = int.MaxValue;
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +83,7 @@ namespace FoosballApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PlayerHub>("/playerHub");
             });
         }
     }

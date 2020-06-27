@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FoosballApi.Context
+namespace FoosballApi.Context.Entitys
 {
     public partial class PlayedMatch
     {

@@ -2,6 +2,7 @@
 
 export class Match {
     
+    public id: number = 0;
     public offencePlayer1: Player = null;
     public offencePlayer2: Player = null;
     public defencePlayer1: Player = null;

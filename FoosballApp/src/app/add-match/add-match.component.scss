@@ -1,24 +1,82 @@
-.AddMatchContainer{
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    width: fit-content;
-    
-    .Team {
-        margin: 30px;
-    }
-
-    .result {
-        display: flex;
-        flex-flow: row;
-
-        select-points {
-            height: fit-content;
-            margin-top: auto;
-            margin-bottom: auto;
-            margin-right: 20px;
-            margin-left: 20px;
+@media (max-width: 576px) { 
+    .match-container {
+        width: 100%;
+        flex-direction: column;
+        .playerSelect {
+            display: flex;
+            flex-direction: column;
+        }
+        .scoreSelect{
+            flex-direction: column;
         }
     }
+    .btn-width {
+        width: 100%;
+    }
+}
 
+@media (min-width: 576px) { 
+    .match-container {
+        width: 100%;
+        flex-direction: column;
+        .playerSelect {
+            display: flex;
+            flex-direction: column;
+        }
+        .scoreSelect{
+            flex-direction: column;
+        }
+    }
+    .btn-width {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) { 
+    .match-container {
+        width: 100%;
+        flex-direction: row;
+        .playerSelect {
+            display: flex;
+            flex-direction: column;
+        }
+        .scoreSelect{
+            flex-direction: row;
+        }
+    }
+    .btn-width {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) { 
+    .match-container {
+        width: 80%;
+        .playerSelect {
+            display: flex;
+            flex-direction: column;
+        }
+        .scoreSelect{
+            flex-direction: row;
+        }
+    }
+    .btn-width {
+        width: 80%;
+    }
+}
+
+@media (min-width: 1200px) { 
+    .match-container {
+        width: 60%;
+        .playerSelect {
+            display: flex;
+            flex-direction: column;
+        }
+        .scoreSelect{
+            flex-direction: row;
+        }
+    }
+    .btn-width {
+        width: 60%;
+    }
 }

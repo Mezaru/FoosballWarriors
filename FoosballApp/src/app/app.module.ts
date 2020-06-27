@@ -16,6 +16,9 @@ import { SelectPointsComponent } from './shared/components/select-points/select-
 import { PlayerSelectComponent } from './shared/components/player-select/player-select.component';
 import { PlayersComponent } from './players/players.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PlayerCardComponent } from './shared/components/player-card/player-card.component';
+import { DeviderComponent } from './shared/components/devider/devider.component';
+import { ChoosePlayerComponent } from './shared/components/choose-player/choose-player.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { HttpClientModule } from '@angular/common/http';
     HistoryComponent,
     GenerateTeamsComponent,
     PlayerSelectComponent,
-    PlayersComponent
+    PlayersComponent,
+    PlayerCardComponent,
+    DeviderComponent,
+    ChoosePlayerComponent
   ],
   imports: [
     BrowserModule,

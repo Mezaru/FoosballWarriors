@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ComponentFactoryResolver, ViewContainerRef, ComponentRef } from '@angular/core';
+import { ChoosePlayerComponent } from '../choose-player/choose-player.component';
+import { SelectPlayer } from '../../models/SelectPlayer.model';
 
 @Component({
   selector: 'player-select',
@@ -7,45 +9,58 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PlayerSelectComponent implements OnInit {
 
-  @Input() values;
-  @Input() selectedValue;
-  @Output() valuesChange = new EventEmitter();
-  @Output() selectedValueChange = new EventEmitter();
+  @Input() players: SelectPlayer[];
+  @Input() selectedPlayer: SelectPlayer;
+  @Output() playersChange = new EventEmitter();
+  @Output() selectedPlayerChange = new EventEmitter();
 
-  currentValue;
+  @ViewChild("choosePlayer", {read: ViewContainerRef}) choosePlayerRef: ViewContainerRef
+  private ref: ComponentRef<ChoosePlayerComponent>;
+  public selectedPlayerName: string = "Select player";
 
-  constructor() { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
+
   }
 
-  SelectPlayer(player){
+  SelectPlayer(player: SelectPlayer){
+    if(this.selectedPlayer)
+      this.selectedPlayer.isSelected = false;
 
-    let tmpList = Object.create(this.values);
+    var selectPlayer = this.players.find(x => player.player.id == x.player.id);
+    selectPlayer.isSelected = true;
 
-    if(player !== undefined){
-      var index = tmpList.findIndex(x => x.value === player.value)
-      tmpList.splice(index, 1);
-    }
+    this.selectedPlayer = selectPlayer;
+    this.selectedPlayerName = selectPlayer.player.name;
 
-    if(this.currentValue !== undefined) {
-      tmpList.push(this.currentValue);
-    }
-    this.currentValue = player;   
+    this.selectedPlayerChange.emit(this.selectedPlayer);
+    this.playersChange.emit(this.players);
+  }
 
-    this.values = tmpList.sort(function(a, b) {
-      var nameA = a.name.toUpperCase();
-      var nameB = b.name.toUpperCase();
+  ChoosePlayer(){
+    this.choosePlayerRef.clear()
 
-      if(nameA < nameB)
-        return -1;
-      if(nameA > nameB)
-        return 1;
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ChoosePlayerComponent);
 
-      return 0;
+    this.ref = this.choosePlayerRef.createComponent(componentFactory);
+    this.ref.instance.players = this.players;
+    this.ref.instance.close.subscribe(() => {
+      setTimeout(() => this.ref.destroy(), 0);
     });
+    this.ref.instance.selectedPlayerChange.subscribe((player: SelectPlayer) => {
+      this.SelectPlayer(player);
+      setTimeout(() => this.ref.destroy(), 0);
+    });
+  }
 
-    this.selectedValueChange.emit(this.selectedValue);
-    this.valuesChange.emit(this.values);
+  RemovePlayer(){
+    if(this.selectedPlayer){
+      this.selectedPlayer.isSelected = false;
+      this.selectedPlayer = null;
+      this.selectedPlayerName = "Select player"
+      this.selectedPlayerChange.emit(null);
+      this.playersChange.emit(this.players);
+    }
   }
 }

@@ -8,8 +8,11 @@ namespace FoosballApi.Models
 {
     public class PlayerModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int Rating { get; set; }
+        public int OffensiveRating { get; set; }
+        public int DefensiveRating { get; set; }
+        public DateTime LastPlayed { get; set; }
         private string imageUrl;
         public string ImageUrl
         {

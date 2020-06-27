@@ -7,6 +7,7 @@ namespace FoosballApi.Models
 {
     public class MatchModel
     {
+        public int Id { get; set; }
         public PlayerModel OffencePlayer1 { get; set; }
         public PlayerModel OffencePlayer2 { get; set; }
         public PlayerModel DefencePlayer1 { get; set; }

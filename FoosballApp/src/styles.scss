@@ -11,9 +11,21 @@
   border-color: #7d40bb;
 }
 
+.btn-primary:disabled {
+  background-color: #81669c;
+  border-color: #8e60bb;
+}
+
 body {
     background-color: #1b1e27;
     color: #7d40bb;
+}
+
+.exitButton {
+  width: 5%;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 0.5rem;
 }
 
 .dark_grid {

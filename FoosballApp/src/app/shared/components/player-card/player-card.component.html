@@ -1,0 +1,14 @@
+<div (click)="IsClicked()" class="m-2 flex-column">
+    <div class="d-flex justify-content-between">
+        <div class="col-10 p-0 d-flex flex-column justify-content-between">
+            <h2 class="mb-0">{{player.name}}</h2>
+            <div class="d-flex flex-row justify-content-around">
+                <div>Offence {{player.offensiveRating}}</div>
+                <div>Defence {{player.defensiveRating}}</div>
+            </div>
+        </div>
+        <div id="image-container" class="col-2 p-0">
+            <img [ngStyle]="{'height.px': height, 'width.px': width}" class="rounded-circle" [src]='baseUrl + player.imageUrl' />
+        </div>
+    </div>
+</div>

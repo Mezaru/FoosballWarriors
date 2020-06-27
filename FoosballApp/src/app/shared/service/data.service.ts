@@ -51,4 +51,28 @@ export class DataService {
             });
         });
     }
+
+    public UpdatePlayerName(player: Player){
+        return new Promise((resolve, reject) => {
+            this.client.put(this.url + 'Players/put/', player, { headers: this.headers, reportProgress: true }).subscribe(resp => {
+                resolve();
+            }, error => {
+                console.log(error);
+                reject();
+            });
+        });
+    }
+
+    public DeletePlayer(playerId: number){
+        return new Promise((resolve, reject) => {
+            this.client.delete(this.url + `Players/Delete/${playerId}`, { headers: this.headers }).subscribe(resp => {
+                resolve(resp);
+                
+            }, error => {
+                console.log(error);
+                reject(false);
+            });
+        });
+    }
+
 }

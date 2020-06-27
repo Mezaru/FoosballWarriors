@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FoosballApi.Context
+namespace FoosballApi.Context.Entitys
 {
     public partial class Teams
     {
@@ -12,13 +12,12 @@ namespace FoosballApi.Context
         }
 
         public int Id { get; set; }
-        public int PlayerId1 { get; set; }
-        public int PlayerId2 { get; set; }
+        public int OffensePlayerId { get; set; }
+        public int DefensePlayerId { get; set; }
         public string Name { get; set; }
-        public int Rating { get; set; }
 
-        public virtual Player PlayerId1Navigation { get; set; }
-        public virtual Player PlayerId2Navigation { get; set; }
+        public virtual Player DefensePlayer { get; set; }
+        public virtual Player OffensePlayer { get; set; }
         public virtual ICollection<PlayedMatch> PlayedMatchTeam1Navigation { get; set; }
         public virtual ICollection<PlayedMatch> PlayedMatchTeam2Navigation { get; set; }
     }

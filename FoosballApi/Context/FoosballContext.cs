@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using FoosballApi.Context.Entitys;
 
 namespace FoosballApi.Context
 {
@@ -17,7 +18,9 @@ namespace FoosballApi.Context
 
         public virtual DbSet<PlayedMatch> PlayedMatch { get; set; }
         public virtual DbSet<Player> Player { get; set; }
+        public virtual DbSet<PlayerRating> PlayerRating { get; set; }
         public virtual DbSet<Teams> Teams { get; set; }
+        public virtual DbSet<TeamsRating> TeamsRating { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -69,34 +72,40 @@ namespace FoosballApi.Context
 
             modelBuilder.Entity<Player>(entity =>
             {
-                entity.Property(e => e.Name).IsRequired();
+                entity.HasIndex(e => e.Name)
+                    .HasName("UQ__tmp_ms_x__737584F60169BD03")
+                    .IsUnique();
 
-                entity.Property(e => e.Rating).HasDefaultValueSql("((1500))");
+                entity.Property(e => e.ImageUrl).HasColumnName("imageUrl");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(500);
             });
 
             modelBuilder.Entity<Teams>(entity =>
             {
-                entity.HasIndex(e => e.PlayerId1)
-                    .HasName("UQ__Teams__9A460A4A35687EE0")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.PlayerId2)
+                entity.HasIndex(e => e.DefensePlayerId)
                     .HasName("UQ__Teams__9A460A4D6FC8C749")
                     .IsUnique();
 
-                entity.Property(e => e.Rating).HasDefaultValueSql("((1500))");
+                entity.HasIndex(e => e.OffensePlayerId)
+                    .HasName("UQ__Teams__9A460A4A35687EE0")
+                    .IsUnique();
 
-                entity.HasOne(d => d.PlayerId1Navigation)
-                    .WithOne(p => p.TeamsPlayerId1Navigation)
-                    .HasForeignKey<Teams>(d => d.PlayerId1)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Teams_Player1");
+                entity.Property(e => e.Name).IsRequired();
 
-                entity.HasOne(d => d.PlayerId2Navigation)
-                    .WithOne(p => p.TeamsPlayerId2Navigation)
-                    .HasForeignKey<Teams>(d => d.PlayerId2)
+                entity.HasOne(d => d.DefensePlayer)
+                    .WithOne(p => p.TeamsDefensePlayer)
+                    .HasForeignKey<Teams>(d => d.DefensePlayerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Teams_Player2");
+
+                entity.HasOne(d => d.OffensePlayer)
+                    .WithOne(p => p.TeamsOffensePlayer)
+                    .HasForeignKey<Teams>(d => d.OffensePlayerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Teams_Player1");
             });
 
             OnModelCreatingPartial(modelBuilder);
