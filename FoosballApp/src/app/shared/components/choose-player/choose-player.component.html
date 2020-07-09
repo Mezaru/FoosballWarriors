@@ -1,12 +1,13 @@
-<div class="popup" >
-    <div class="container playerContainer mr-auto ml-auto" style="background-color: #2e1a42; width: 500px;">
+<div class="popup">
+    <div class="container playerContainer mr-auto ml-auto" style="background-color: #2e1a42;">
         <div class="row flex-row justify-content-between headBorder mb-2">
             <h3 style="margin-left: 0.5rem;">Players</h3>
             <img class="exitButton" (click)="ClosePopUp($event)" src="https://localhost:44364/images/exit.png" />
         </div>
         <div class="row flex-column pl-2 pr-2" *ngFor="let player of players">
-            <player-card (cardClick)="SelectPlayer($event)" class="rounded mb-2" style="box-shadow: inset 0 0 5px #482867;" 
-            *ngIf="!player.isSelected" [player]="player.player"></player-card>
+            <player-card (cardClick)="SelectPlayer($event)" class="rounded mb-2"
+                style="box-shadow: inset 0 0 5px #482867;" *ngIf="!player.isSelected" [player]="player.player">
+            </player-card>
         </div>
     </div>
 </div>

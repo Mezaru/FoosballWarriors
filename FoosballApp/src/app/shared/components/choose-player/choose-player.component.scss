@@ -9,12 +9,41 @@
 }
 
 .playerContainer {
-    height: 80vh;
-    margin-top: 10vh;
+    height: 100vh;
     border: solid 1px #452368;
     padding-left: 1em;
     padding-right: 1em;
+    overflow: auto;
 }
+
+@media (min-width: 768px) { 
+    .playerContainer {
+        width: 50%;
+        height: 80vh;
+        margin-top: 10vh;
+    }
+}
+
+@media (min-width: 992px) { 
+    .playerContainer {
+        width: 35%;
+        height: 80vh;
+        margin-top: 10vh;
+    }
+}
+
+
+@media (min-width: 1200px) { 
+    .playerContainer {
+        width: 25%;
+        height: 80vh;
+        margin-top: 10vh;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+  }
 
 .headBorder {
     border-bottom: solid 2px #452368;

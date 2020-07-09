@@ -13,5 +13,6 @@ namespace FoosballApi.Interface
         int SaveNewPlayer(PlayerModel player);
         bool DeletePlayer(int id);
         bool UppdatePlayer(Player player);
+        bool SaveNewMatch(MatchModel match);
     }
 }

@@ -1,4 +1,5 @@
-﻿using FoosballApi.Context;
+﻿using EloCalculator;
+using FoosballApi.Context;
 using FoosballApi.Context.Entitys;
 using FoosballApi.Interface;
 using FoosballApi.Models;
@@ -99,6 +100,64 @@ namespace FoosballApi.Repository
             editPlayer.Name = player.Name;
 
             context.SaveChanges();
+            return true;
+        }
+
+        public bool SaveNewMatch(MatchModel match)
+        {
+            var teamOne = context.Set<Teams>().FirstOrDefault(x => x.OffensePlayerId == match.OffencePlayer1.Id && x.DefensePlayerId == match.DefencePlayer1.Id);
+            if (teamOne == null)
+            {
+                teamOne = new Teams
+                {
+                    OffensePlayerId = match.OffencePlayer1.Id,
+                    DefensePlayerId = match.DefencePlayer1.Id,
+                    Name = $"{match.OffencePlayer1.Name}_{match.DefencePlayer1.Name}"
+                };
+                context.Add(teamOne);
+            }
+
+            var teamTwo = context.Set<Teams>().FirstOrDefault(x => x.OffensePlayerId == match.OffencePlayer2.Id && x.DefensePlayerId == match.DefencePlayer2.Id);
+            if (teamTwo == null)
+            {
+                teamTwo = new Teams
+                {
+                    OffensePlayerId = match.OffencePlayer2.Id,
+                    DefensePlayerId = match.DefencePlayer2.Id,
+                    Name = $"{match.OffencePlayer2.Name}_{match.DefencePlayer2.Name}"
+                };
+                context.Add(teamTwo);
+            }
+
+            var eloTeam1 = new EloTeam(match.ScoreTeam1 > match.ScoreTeam2);
+            eloTeam1.AddPlayer(new EloPlayer(match.OffencePlayer1.OffensiveRating));
+            eloTeam1.AddPlayer(new EloPlayer(match.DefencePlayer1.DefensiveRating));
+            var eloTeam2 = new EloTeam(match.ScoreTeam2 > match.ScoreTeam1);
+            eloTeam2.AddPlayer(new EloPlayer(match.OffencePlayer2.OffensiveRating));
+            eloTeam2.AddPlayer(new EloPlayer(match.DefencePlayer2.DefensiveRating));
+            var eloMatch = new EloMatch(new[] { eloTeam1, eloTeam2 });
+            var result = eloMatch.Calculate();
+
+            var team1Result = result.GetResults(eloTeam1.Identifier).ToList();
+            var team2Result = result.GetResults(eloTeam2.Identifier);
+
+            match.OffencePlayer1.OffensiveRating = team1Result.First().RatingAfter;
+            match.DefencePlayer1.DefensiveRating = team1Result.Last().RatingAfter;
+            match.OffencePlayer2.OffensiveRating = team2Result.First().RatingAfter;
+            match.DefencePlayer2.DefensiveRating = team2Result.Last().RatingAfter;
+
+            context.Add(new PlayedMatch
+            {
+                OffencePlayer1 = match.OffencePlayer1.Id,
+                DefencePlayer1 = match.DefencePlayer1.Id,
+                ScoreTeam1 = match.ScoreTeam1,
+                OffencePlayer2 = match.OffencePlayer2.Id,
+                DefencePlayer2 = match.OffencePlayer2.Id,
+                ScoreTeam2 = match.ScoreTeam2,
+                MatchTime = DateTime.Now,
+
+            });
+
             return true;
         }
     }
