@@ -1,0 +1,3 @@
+[submodule "FoosballWarriors"]
+    path = FoosballWarriors
+    url = https://github.com/Mezaru/FoosballWarriors.git
